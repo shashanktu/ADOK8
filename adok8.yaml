@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adok8
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 9999
+    targetPort: 9999
+    protocol: TCP
+    name: http
+  selector:
+    app: adok8
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adok8-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adok8
+  template:
+    metadata:
+      labels:
+        app: adok8
+        version: adok8-version-1
+    spec:
+      containers:
+      - name: adok8-1
+        image: janardhan54/adok8:1
+        imagePullPolicy: Always
+        env:
+           - name: TZ
+             value: Asia/Kolkata      
