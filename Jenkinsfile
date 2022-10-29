@@ -34,7 +34,7 @@ stage('Test') {
 stage('Build Image') {
     sh """
         
-        docker build -t ${IMAGE_NAME}:${TAG_NAME} .
+        sudo docker build -t ${IMAGE_NAME}:${TAG_NAME} .
     """
 }
 
