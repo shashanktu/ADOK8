@@ -34,12 +34,12 @@ stage('Test') {
 stage('Build Image') {
     sh """
         
-        sudo docker build -t ${IMAGE_NAME}:${TAG_NAME} .
+        docker build -t ${IMAGE_NAME}:${TAG_NAME} .
     """
 }
 
 
-stage('Publish Image') {
+/*stage('Publish Image') {
 // withCredentials([usernamePassword(credentialsId: 'docker_login', passwordVariable: 'password', usernameVariable: 'username')]) {
   withCredentials([usernamePassword(credentialsId: 'Jfrog_login', passwordVariable: 'password', usernameVariable: 'username')]) {
    sh """
@@ -57,7 +57,7 @@ stage('Publish Image') {
         """ */
 
     }
-}   
+}   */
 
 stage("Deploy to master") {
        withCredentials([kubeconfigFile(credentialsId: 'Kconfig', variable: 'KUBECONFIG')]) {
