@@ -23,13 +23,6 @@ stage('Build') {
     }
 }
 
-stage('Test') {
-    withMaven(jdk: 'java', maven: 'maven') {
-        
-        println "Unit Test is running"
-        sh 'mvn -f pom.xml test'
-    }
-}
 
 stage('Build Image') {
     sh """
@@ -39,7 +32,7 @@ stage('Build Image') {
 }
 
 
-/*stage('Publish Image') {
+stage('Publish Image') {
 // withCredentials([usernamePassword(credentialsId: 'docker_login', passwordVariable: 'password', usernameVariable: 'username')]) {
   withCredentials([usernamePassword(credentialsId: 'Jfrog_login', passwordVariable: 'password', usernameVariable: 'username')]) {
    sh """
@@ -57,7 +50,7 @@ stage('Build Image') {
         """ */
 
     }
-}   */
+}   
 
 stage("Deploy to master") {
        withCredentials([kubeconfigFile(credentialsId: 'Kconfig', variable: 'KUBECONFIG')]) {
@@ -74,3 +67,4 @@ stage("Deploy to master") {
     }
         }
      }
+}
