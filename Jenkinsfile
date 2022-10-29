@@ -74,5 +74,3 @@ stage("Deploy to master") {
     }
         }
      }
-} 
-
