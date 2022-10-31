@@ -34,7 +34,7 @@ stage('Build Image'){
 }
 
  stage("Deploy to VM"){
-    sshagent(['SSH_key']){
+    sshagent(['SSH_User']){
          sh 'scp  /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.78.214.230:/home/ubuntu'
     }
  }
