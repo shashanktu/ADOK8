@@ -11,7 +11,7 @@ def TAG_NAME = params.TAG_NAME
 // def Dockerhub_URL = params.Dockerhub_URL
 
 stage('Checkout') {
- git branch: 'master', credentialsId: 'github_login', url: 'https://github.com/Pocaccount1/ADOK8.git'   
+ git branch: 'master', credentialsId: 'Git_Id', url: 'https://github.com/leenatejababu/ADOK8.git'   
  }
 
 
