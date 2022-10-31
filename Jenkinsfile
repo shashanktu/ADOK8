@@ -28,21 +28,12 @@ stage('Build Image') {
     sh """
         
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
-        docker save -o ado.tar ${IMAGE_NAME}:${TAG_NAME}
-       scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.74.67.102:/root/Leena
+        docker tag webapps:latest 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/webapps:latest
+        docker push 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/webapps:latest
+        //docker save -o ado.tar ${IMAGE_NAME}:${TAG_NAME}
+    //   scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.74.67.102:/root/Leena
     """
 }
- 
- stage('Deploy') {
-            steps {
-                script{
-                      docker.withRegistry('https://023756939836.dkr.ecr.ap-northeast-1.amazonaws.com', 'ecr:us-east-2:aws-credentials') {
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
-                    }
-                }
-            }
- }
 
 
 stage('Publish Image') {
