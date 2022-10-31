@@ -24,7 +24,7 @@ stage('Build') {
 }
 
 
-stage('Build Image') {
+stage('Build Image'){
     sh """
         
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
@@ -34,8 +34,8 @@ stage('Build Image') {
 }
 
  stage("Deploy to VM"){
-    sshagent(['SSH_key']) {
-     scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.78.214.230:/home/ubuntu
+    sshagent(['SSH_key']){
+         scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.78.214.230:/home/ubuntu
     }
  }
  
