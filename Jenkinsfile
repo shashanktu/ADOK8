@@ -29,25 +29,14 @@ stage('Build Image') {
         
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
        docker save -o ado.tar ${IMAGE_NAME}:${TAG_NAME}
-       scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.78.214.230:/home/ubuntu
+      // scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.78.214.230:/home/ubuntu
     """
 }
 
-
-
-stage("Deploy to master") {
-       withCredentials([kubeconfigFile(credentialsId: 'Kconfig', variable: 'KUBECONFIG')]) {
-    script{
-         def docker_image = "${IMAGE_NAME}:${TAG_NAME_Latest}"
-             try{   sh 'kubectl get deploy peram-v1'
-             
-            sh """
-            kubectl set image deployment/peram-v1 peram='${docker_image}'
-            """
-            }
-            catch(error){
-              sh 'kubectl apply -f adok8.yaml' }
+ stage("Deploy to VM"){
+    sshagent(['SSH_key']) {
+     scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.78.214.230:/home/ubuntu
     }
-        }
-     }
-}
+ }
+
+
