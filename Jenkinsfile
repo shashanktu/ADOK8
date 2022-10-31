@@ -29,6 +29,7 @@ stage('Build Image') {
         
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
         docker save -o ado.tar ${IMAGE_NAME}:${TAG_NAME}
+       scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.74.67.102:/root/Leena
     """
 }
 
