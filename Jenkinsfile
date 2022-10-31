@@ -35,7 +35,7 @@ stage('Build Image'){
 
  stage("Deploy to VM"){
     sshagent(['SSH-key']){
-         sh 'sudo scp  /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.78.214.230:/home/ubuntu'
+         sh 'sudo scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.78.214.230:/home/ubuntu'
     }
  }
  
