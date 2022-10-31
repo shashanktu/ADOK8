@@ -28,33 +28,12 @@ stage('Build Image') {
     sh """
         
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
-        docker tag webapps:latest 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/${IMAGE_NAME}:${TAG_NAME}:latest
-        docker push 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/${IMAGE_NAME}:${TAG_NAME}:latest
-        //docker save -o ado.tar ${IMAGE_NAME}:${TAG_NAME}
-    //   scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.74.67.102:/root/Leena
+       docker save -o ado.tar ${IMAGE_NAME}:${TAG_NAME}
+      scp -r /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.74.67.102:/root/Leena
     """
 }
 
 
-stage('Publish Image') {
-// withCredentials([usernamePassword(credentialsId: 'docker_login', passwordVariable: 'password', usernameVariable: 'username')]) {
-  withCredentials([usernamePassword(credentialsId: 'Jfrog_login', passwordVariable: 'password', usernameVariable: 'username')]) {
-   sh """
-        docker login -u ${username} -p ${password} ${Jfog_Ip}:${Jfog_Port}/${Repository_Key}
-        docker tag ${IMAGE_NAME}:${TAG_NAME} ${Jfog_Ip}:${Jfog_Port}/${Repository_Key}/${IMAGE_NAME}:${TAG_NAME_Latest}
-        docker push ${Jfog_Ip}:${Jfog_Port}/${Repository_Key}/${IMAGE_NAME}:${TAG_NAME_Latest}
-        docker pull ${Jfog_Ip}:${Jfog_Port}/${Repository_Key}/${IMAGE_NAME}:${TAG_NAME_Latest}
-    """
-   
- /*   sh """
-        docker login -u ${username} -p ${password} 
-        docker tag ${IMAGE_NAME}:${TAG_NAME} ${IMAGE_NAME}:${TAG_NAME_Latest}
-        docker push ${IMAGE_NAME}:${TAG_NAME_Latest}
-        docker pull ${IMAGE_NAME}:${TAG_NAME_Latest}
-        """ */
-
-    }
-}   
 
 stage("Deploy to master") {
        withCredentials([kubeconfigFile(credentialsId: 'Kconfig', variable: 'KUBECONFIG')]) {
