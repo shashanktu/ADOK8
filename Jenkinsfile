@@ -34,7 +34,7 @@ stage('Build Image'){
 
  stage("Deploy to VM"){
     sshagent(['SSH-key']){
-         sh 'ssh -o StrictHostKeyChecking=no ubuntu@35.78.214.230'
+         sh 'scp /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@35.78.214.230:/home/ubuntu'
     }
  }
  
