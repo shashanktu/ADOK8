@@ -37,8 +37,8 @@ stage('Build Image'){
   def dockerRun = 'docker run -d -p 8080:8080 --name app docker:v1'
     sshagent(['SSH-key']){
      sh "rsync -avz /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@18.179.5.115:/home/ubuntu "
-     sh "sudo docker load -i ado.tar"
-     sh "sudo docker images"
+     sh "docker load -i ado.tar"
+     sh "docker images"
     }
  }
  
