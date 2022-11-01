@@ -34,7 +34,7 @@ stage('Build Image'){
 
  stage("Deploy to VM"){
     sshagent(['SSH-key']){
-         sh "ssh -o StrictHostKeyChecking=no ubuntu@18.181.228.212 'pwd'"
+         sh "ssh -o StrictHostKeyChecking=no ubuntu@3.112.124.119 'pwd'"
     }
  }
  
