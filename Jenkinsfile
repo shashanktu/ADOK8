@@ -35,8 +35,8 @@ stage('Build Image'){
  stage("Deploy to VM"){
   def dockerRun = 'docker run -d -p 8080:8080 docker:v1'
     sshagent(['SSH-key']){
-     sh "ssh -o StrictHostKeyChecking=no ubuntu@35.74.0.158  'scp -r docker:v1 ubuntu@35.74.0.158:/home/ubuntu'"
-     sh "ssh -o StrictHostKeyChecking=no ubuntu@35.74.0.158 '${dockerRun}'"
+     sh "ssh -o StrictHostKeyChecking=no ubuntu@13.231.179.146  'scp -r docker:v1 ubuntu@13.231.179.146:/home/ubuntu'"
+     sh "ssh -o StrictHostKeyChecking=no ubuntu@13.231.179.146 '${dockerRun}'"
     }
  }
  
