@@ -36,10 +36,10 @@ stage('Build Image'){
  stage("Deploy to VM"){
   def dockerRun = "docker run -d -p 8084:8084 docker:v1"
     sshagent(['SSH-key']){
-     sh "rsync -avz /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@18.179.5.115:/home/ubuntu "
-     sh "ssh -o StrictHostKeyChecking=no ubuntu@18.179.5.115 'docker load -i ado.tar'"
-     sh "ssh -o StrictHostKeyChecking=no ubuntu@18.179.5.115 'docker images'"
-     sh "ssh -o StrictHostKeyChecking=no ubuntu@18.179.5.115 ${dockerRun}"
+     sh "rsync -avz /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@54.250.201.228:/home/ubuntu "
+     sh "ssh -o StrictHostKeyChecking=no ubuntu@54.250.201.228 'docker load -i ado.tar'"
+     sh "ssh -o StrictHostKeyChecking=no ubuntu@54.250.201.228 'docker images'"
+     sh "ssh -o StrictHostKeyChecking=no ubuntu@54.250.201.228 ${dockerRun}"
     }
  }
  
