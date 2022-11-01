@@ -11,4 +11,6 @@ phases:
     commands:
       - echo Build completed on `date`
 artifacts:
-      - *
+      - echo "Uploading to S3.."
+      - aws s3 cp myBuild.zip s3://${S3_BUCKET}/myBuild.zip
+      - echo "Done."
