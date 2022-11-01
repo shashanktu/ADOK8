@@ -30,15 +30,10 @@ stage('Build Image'){
       """
 }
 
- stage('Run Docker container on remote hosts') {
-             
-            steps {
-                sh "docker -H ssh://ubuntu@18.179.5.115 run -d -p 8003:8080 docker:v1"
-            }
- }
+ 
 
  stage("Deploy to VM"){
-  def dockerRun = 'docker run -d -p 8080:8080 docker:v1'
+  def dockerRun = 'docker run -d -p 8080:8080 --name app docker:v1'
     sshagent(['SSH-key']){
      sh "ssh -o StrictHostKeyChecking=no ubuntu@18.179.5.115  'ls'"
      sh "ssh -o StrictHostKeyChecking=no ubuntu@18.179.5.115 '${dockerRun}'"
