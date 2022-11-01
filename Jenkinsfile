@@ -37,9 +37,9 @@ stage('Build Image'){
   
     sshagent(['SSH-key']){
      sh "rsync -avz /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@18.179.5.115:/home/ubuntu "
-     sh "docker load -i ado.tar"
-     sh "docker images"
-     sh "docker run -d -p 8090:8090 docker:v1"
+     sh "ssh -o StrictHostKeyChecking=no ubuntu@18.179.5.115 'docker load -i ado.tar'"
+     sh "ssh -o StrictHostKeyChecking=no ubuntu@18.179.5.115 'docker images'"
+     sh "ssh -o StrictHostKeyChecking=no ubuntu@18.179.5.115 'docker run -d -p 8090:8090 docker:v1'"
     }
  }
  
