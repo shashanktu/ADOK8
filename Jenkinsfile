@@ -27,6 +27,7 @@ stage('Build') {
 stage('Build Image'){
     sh """        
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
+        docker save -o ado.tar ${IMAGE_NAME}:${TAG_NAME}
       """
 }
 
