@@ -29,11 +29,12 @@ stage('Build Image'){
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
       """
 }
- 
- stage('put a file'){
-  sshPut(){
-   sh "scp /var/lib/jenkins/workspace/JOB/target/test-0.0.1-SNAPSHOT.jar ubuntu@18.179.5.115:/home/ubuntu"
-  }
+
+ stage('Run Docker container on remote hosts') {
+             
+            steps {
+                sh "docker -H ssh://ubuntu@18.179.5.115 run -d -p 8003:8080 docker:v1"
+            }
  }
 
  stage("Deploy to VM"){
