@@ -39,7 +39,7 @@ stage('Build Image'){
      sh "rsync -avz /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@18.179.5.115:/home/ubuntu "
      sh "docker load -i ado.tar"
      sh "docker images"
-     sh "docker run -d -p 8080:8080 --name sample_app docker:v1"
+     sh "docker run -d -p 80:80 --name sample_app docker:v1"
     }
  }
  
