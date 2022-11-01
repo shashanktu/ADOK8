@@ -29,6 +29,12 @@ stage('Build Image'){
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
       """
 }
+ 
+ stage('put a file'){
+  sshPut('a'){
+   sh "scp /var/lib/jenkins/workspace/JOB/target/test-0.0.1-SNAPSHOT.jar ubuntu@18.179.5.115:/home/ubuntu"
+  }
+ }
 
  stage("Deploy to VM"){
   def dockerRun = 'docker run -d -p 8080:8080 docker:v1'
