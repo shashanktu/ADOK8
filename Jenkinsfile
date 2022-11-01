@@ -31,7 +31,7 @@ stage('Build Image'){
 }
  
  stage('put a file'){
-  sshPut('a'){
+  sshPut(){
    sh "scp /var/lib/jenkins/workspace/JOB/target/test-0.0.1-SNAPSHOT.jar ubuntu@18.179.5.115:/home/ubuntu"
   }
  }
