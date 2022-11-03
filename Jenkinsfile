@@ -30,7 +30,6 @@ stage('Build Image'){
         docker save -o ado.tar ${IMAGE_NAME}:${TAG_NAME}
       """
 }
-
  
 
  stage("Deploy to VM"){
