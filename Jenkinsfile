@@ -41,8 +41,7 @@ stage('Build Image'){
      sh "ssh -o StrictHostKeyChecking=no ubuntu@20.163.134.33 'docker images'"
      sh "ssh -o StrictHostKeyChecking=no ubuntu@20.163.134.33 ${dockerRun}"
     }
- }
- 
+ } 
 }
 
 
