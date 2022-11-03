@@ -34,12 +34,14 @@ stage('Build Image'){
  
 
  stage("Deploy to VM"){
-  def dockerRun = "docker run -d -p 8085:8085 docker:v3"
+  def dockerRun = "docker run -d -p 8086:8086 docker:v4"
     sshagent(['SSH-JENKINS']){
      sh "rsync -avz /var/lib/jenkins/workspace/Test/maven.tar root@20.115.5.151:/root"
      sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 'docker load -i maven.tar'"
      sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 'docker images'"
-     sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 ${dockerRun}"
+     sh """
+        ssh -o StrictHostKeyChecking=no root@20.115.5.151 "${dockerRun}"
+        """
     }
  }
  
