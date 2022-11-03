@@ -11,7 +11,7 @@ def TAG_NAME = params.TAG_NAME
 // def Dockerhub_URL = params.Dockerhub_URL
 
 stage('Checkout') {
-  git credentialsId:'Github_Login', url: 'https://github.com/leenatejababu/ADOK8.git'   
+  git credentialsId:'Gitlab_Login', url: 'https://github.com/leenatejababu/ADOK8'   
  }
 
 
@@ -27,20 +27,20 @@ stage('Build') {
 stage('Build Image'){
     sh """        
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
-        docker save -o ado.tar ${IMAGE_NAME}:${TAG_NAME}
+        docker save -o maven.tar ${IMAGE_NAME}:${TAG_NAME}
       """
 }
+
  
 
  stage("Deploy to VM"){
-  def dockerRun = "docker run -d -p 8084:8084 docker:v1"
-    sshagent(['SSH-key']){
-     sh "rsync -avz /var/lib/jenkins/workspace/JOB/ado.tar ubuntu@20.163.134.33:/home/webapps "
-     sh "ssh -o StrictHostKeyChecking=no ubuntu@20.163.134.33 'docker load -i ado.tar'"
-     sh "ssh -o StrictHostKeyChecking=no ubuntu@20.163.134.33 'docker images'"
-     sh "ssh -o StrictHostKeyChecking=no ubuntu@20.163.134.33 ${dockerRun}"
+  def dockerRun = "docker run -d -p 9999:9999 docker:v1"
+    sshagent(['SSH-JENKINS']){
+     sh "rsync -avz /var/lib/jenkins/workspace/Test/maven.tar root@20.115.5.151:/root"
+     sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 'docker load -i maven.tar'"
+     sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 'docker images'"
+     sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 ${dockerRun}"
     }
- } 
+ }
+ 
 }
-
-
