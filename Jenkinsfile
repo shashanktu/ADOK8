@@ -39,9 +39,7 @@ stage('Build Image'){
      sh "rsync -avz /var/lib/jenkins/workspace/Test/maven.tar root@20.115.5.151:/root"
      sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 'docker load -i maven.tar'"
      sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 'docker images'"
-     sh """
-        ssh -o StrictHostKeyChecking=no root@20.115.5.151 "${dockerRun}"
-        """
+     sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 ${dockerRun}"
     }
  }
  
