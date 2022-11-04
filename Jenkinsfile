@@ -29,8 +29,7 @@ stage('Build Image'){
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
         docker save -o maven.tar ${IMAGE_NAME}:${TAG_NAME}
       """
-}
- 
+} 
 
  stage("Deploy to VM"){
   def dockerRun = "docker run -d -p 9999:9999 --name myapp ${IMAGE_NAME}:${TAG_NAME}"
