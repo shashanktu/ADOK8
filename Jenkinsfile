@@ -11,7 +11,7 @@ def TAG_NAME = params.TAG_NAME
 // def Dockerhub_URL = params.Dockerhub_URL
 
 stage('Checkout') {
-  git credentialsId:'Gitlab_Login', url: 'https://gitlab.com/thotasrihari506/adok8'  
+  git credentialsId:'Gitlab_Login', url: 'https://github.com/leenatejababu/ADOK8'  
  }
 
 
