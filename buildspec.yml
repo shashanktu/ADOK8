@@ -1,10 +1,15 @@
 version: 0.2
 
 phases:
-  pre_build:
+  install:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com
+      - curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/2021-01-05/bin/darwin/amd64/kubectl && chmod +x ./kubectl && mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+      - kubectl version --short --client
+      - ./aws-iam-authenticator help
+pre_build:
+    commands:
       - REPOSITORY_URI=023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/java
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
@@ -24,5 +29,4 @@ phases:
       - printf '[{"name":"java","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - cat imagedefinitions.json 
 artifacts:
-     files: imagedefinitions.json
-    
+    files: imagedefinitions.json
