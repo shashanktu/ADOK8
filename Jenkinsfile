@@ -36,7 +36,7 @@ stage('Build Image'){
     sshagent(['SSH-JENKINS']){
         sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker rm -f `docker ps -a -q`'"
         sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker rmi -f `docker images  -q`'"
-         sh "rsync -avz /var/lib/jenkins/workspace/Test/maven.tar webapps@20.25.118.165:/root"
+         sh "rsync -avz /var/lib/jenkins/workspace/Test/maven.tar webapps@20.25.118.165:/home/webapps"
          sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker load -i maven.tar'"
          sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker images'"
          sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 ${dockerRun}"
