@@ -11,7 +11,7 @@ def TAG_NAME = params.TAG_NAME
 // def Dockerhub_URL = params.Dockerhub_URL
 
 stage('Checkout') {
-  git credentialsId:'Gitlab_Login', url: 'https://github.com/leenatejababu/ADOK8'  
+  git credentialsId:'Github-Login', url: 'https://github.com/leenatejababu/ADOK8'  
  }
 
 
@@ -34,12 +34,12 @@ stage('Build Image'){
  stage("Deploy to VM"){
   def dockerRun = "docker run -d -p 9999:9999 --name myapp ${IMAGE_NAME}:${TAG_NAME}"
     sshagent(['SSH-JENKINS']){
-        sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 'docker rm -f `docker ps -a -q`'"
-        sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 'docker rmi -f `docker images  -q`'"
-         sh "rsync -avz /var/lib/jenkins/workspace/Test/maven.tar root@20.115.5.151:/root"
-         sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 'docker load -i maven.tar'"
-         sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 'docker images'"
-         sh "ssh -o StrictHostKeyChecking=no root@20.115.5.151 ${dockerRun}"
+        sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker rm -f `docker ps -a -q`'"
+        sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker rmi -f `docker images  -q`'"
+         sh "rsync -avz /var/lib/jenkins/workspace/Test/maven.tar webapps@20.25.118.165:/root"
+         sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker load -i maven.tar'"
+         sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker images'"
+         sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 ${dockerRun}"
     }
  }
  }
