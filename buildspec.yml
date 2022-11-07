@@ -1,35 +1,19 @@
 version: 0.2
 
 phases:
-  install:
+  pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com
-     
-pre_build:
-    commands:
-      - echo Logging into Amazon EKS...
-      - aws eks --region $AWS_DEFAULT_REGION update-kubeconfig --name $AWS_CLUSTER_NAME
-      - echo Logging in to Amazon ECR...
-      - REPOSITORY_URI=023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/adok8
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | aws -F":" '{print $2}')
-
-build:
+      - echo $AWS_DEFAULT_REGION
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+  build:
     commands:
       - echo Build started on `date`
-      - echo Building the Docker image...
-      - echo $IMAGE_TAG
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:IMAGE_TAG	        
-post_build:
+      - echo Building the Docker image...          
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG      
+  post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:IMAGE_TAG
-      - echo writing image definitions file..
-      - printf '[{"name":"adok8","imageuri":"%s"}]' $REPOSITORY_URI:IMAGE_TAG > imagedefinitions.json
-      - cat imagedefinitions.json
-artifacts:
-     file: imagedefinitions.json	
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
