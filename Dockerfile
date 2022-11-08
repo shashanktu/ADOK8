@@ -1,5 +1,5 @@
-FROM openjdk:11
-COPY . /usr/src/myapp
-WORKDIR /usr/src/myapp
-RUN javac Main.java
-CMD ["java", "Main"]
+FROM openjdk
+
+COPY ./target/test-0.0.1-SNAPSHOT.jar test.jar
+CMD ["java","-jar","test.jar"]
+    
