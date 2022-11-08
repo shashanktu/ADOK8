@@ -11,25 +11,25 @@ phases:
     # update the following line with your own region
     - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com
     - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-    - IMAGE_TAG=${COMMIT_HASH:=v1}
+    - IMAGE_TAG=${COMMIT_HASH:=latest}
     - REPOSITORY_URI=023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/adok8 
   build: 
     commands: 
     - echo Build started on `date` 
     - echo Building the Docker image... 
     # update the following line with the name of your own ECR repository
-    - docker build -t adok8:v1 .
+    - docker build -t adok8:latest .
     # update the following line with the URI of your own ECR repository (view the Push Commands in the console)
-    - docker tag adok8:v1 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/adok8:v1 
+    - docker tag adok8:latest 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/adok8:latest 
   post_build: 
     commands: 
     - echo Build completed on `date` 
     - echo pushing to repo
     # update the following line with the URI of your own ECR repository
-    - docker push 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/adok8:v1
+    - docker push 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/adok8:latest
     - echo Writing image definitions file... 
     #- printf '[{"ImageURI":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imageDetail.json
-    - printf '{"ImageURI":"%s"}' 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/adok8:v1 > imageDetail.json
+    - printf '{"ImageURI":"%s"}' 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/adok8:latest > imageDetail.json
 artifacts:
   files:
     - imageDetail.json
