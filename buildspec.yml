@@ -13,9 +13,6 @@ phases:
     - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
     - IMAGE_TAG=${COMMIT_HASH:=v1}
     - REPOSITORY_URI=023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/adok8 
-    - echo Logging in to Amazon EKS...
-    - aws eks --region ap-northeast-1 update-kubeconfig --name APPs
-    - echo check config 
   build: 
     commands: 
     - echo Build started on `date` 
