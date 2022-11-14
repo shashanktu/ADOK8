@@ -16,7 +16,7 @@ public class TestApplication {
 	@RequestMapping("/")
 	public String message()
 	{
-		return "Welcome to Azure devops";
+		return "Welcome to All";
 	}
 
 }
