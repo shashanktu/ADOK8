@@ -47,9 +47,11 @@ stage('Build Image'){
         }
  stage('Deploy'){
             steps {
-                        sh """docker tag ${IMAGE_NAME}:${TAG_NAME} ${Docker_URL}:latest
+                        sh """aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 670166063118.dkr.ecr.us-east-1.amazonaws.com
+                              docker build -t eksdemo .
+                              docker tag ${IMAGE_NAME}:${TAG_NAME} ${Docker_URL}:latest
                               docker push ${Docker_URL}:latest 
-                               kubectl apply -f deployment.yml
+                              kubectl apply -f deployment.yml
                             """
                 
             }
