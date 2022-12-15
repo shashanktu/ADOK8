@@ -6,6 +6,7 @@ def TAG_NAME = params.TAG_NAME
  def Jfog_Ip = params.Jfog_Ip
  def Jfog_Port = params.Jfog_Port
  def Repository_Key = params.Repository_Key
+ def Docker_URL - params.Docker_URL
  
 // def docker_login = params.docker_login
 // def Dockerhub_URL = params.Dockerhub_URL
@@ -40,10 +41,9 @@ stage('Build Image'){
            // steps {
                 script{
                         docker.withRegistry('670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo', 'ecr:us-east-1:awsECRForeksdemo') {
-                        docker tag 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo:qa-release 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo:latest
-                      //  docker tag 
-                         docker push 670166063118.dkr.ecr.us-east-1.amazonaws.com/${IMAGE_NAME}:${TAG_NAME}
-                    }
+                         docker tag ${Docker_URL}:${TAG_NAME} ${Docker_URL}:latest
+                         docker push ${Docker_URL}:latest                   
+                        }
               //  }
             }
         }
