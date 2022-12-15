@@ -47,10 +47,11 @@ stage('Build Image'){
             }
         }*/
  
- /*stage('predeploy'){
+ stage('predeploy'){
               withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+              docker push ${Docker_URL}:${TAG_NAME}
 } 
- }*/
+ }
  
  stage('Deploy'){
             steps {
