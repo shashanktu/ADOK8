@@ -44,7 +44,7 @@ stage('Build Image'){
                         docker push 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo/${IMAGE_NAME}:{TAG_NAME}
                     }
               //  }
-            }
+          //  }
         }
  stage('Deploy'){
            // steps {
