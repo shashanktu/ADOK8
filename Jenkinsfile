@@ -30,11 +30,11 @@ stage('Build Image'){
       """
 } 
         
- stage('Test'){
+ /*stage('Test'){
             steps {
                  echo 'Empty'
             }
- }
+ }*/
  
  stage('Push') {
             steps {
