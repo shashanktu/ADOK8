@@ -50,19 +50,14 @@ stage('Build Image'){
  stage('predeploy'){
               withDockerRegistry(credentialsId: 'ecr:us-east-1:awsECRForeksdemo', url: 'https://670166063118.dkr.ecr.us-east-1.amazonaws.com') {
               sh "docker push ${Docker_URL}:${TAG_NAME}"
+              sh "docker pull ${Docker_URL}:${TAG_NAME}"
               }
    
  }
  
  stage('Deploy'){
-            steps {
-                        sh """aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 670166063118.dkr.ecr.us-east-1.amazonaws.com
-                              docker push ${Docker_URL}:latest 
-                              kubectl apply -f deployment.yml
-                            """
-                
-            }
-        }
+           sh 'kubectl apply -f deployment.yml'
+ }
 
 /* stage("Deploy to EKS"){
   def dockerRun = "docker run -d -p 9999:9999 --name myapp ${IMAGE_NAME}:${TAG_NAME}"
