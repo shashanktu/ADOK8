@@ -39,7 +39,7 @@ stage('Build Image'){
  stage('Push') {
             steps {
                 script{
-                        docker.withRegistry('https://670166063118.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
+                        docker.withRegistry('https://670166063118.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:awsECRForeksdemo') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
