@@ -11,7 +11,7 @@ def TAG_NAME = params.TAG_NAME
 // def Dockerhub_URL = params.Dockerhub_URL
 
 stage('Checkout') {
-  git credentialsId:'Github-Login', url: 'https://github.com/leenatejababu/ADOK8'  
+  git credentialsId:'Github-Login', url: 'https://github.com/dpanigrahy2020/ADOK8'  
  }
 
 
@@ -31,7 +31,7 @@ stage('Build Image'){
       """
 } 
 
- stage("Deploy to VM"){
+ stage("Deploy to EKS"){
   def dockerRun = "docker run -d -p 9999:9999 --name myapp ${IMAGE_NAME}:${TAG_NAME}"
     sshagent(['SSH-JENKINS']){
         sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker rm -f `docker ps -a -q`'"
