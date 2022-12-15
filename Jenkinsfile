@@ -23,12 +23,11 @@ stage('Build') {
         sh 'mvn -f pom.xml clean package -Dmaven.test.skip=true'
     }
 }
-
+//docker build -t eksdemo .
 stage('Build Image'){
     sh """        
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
         docker save -o maven.tar ${IMAGE_NAME}:${TAG_NAME}
-        //docker build -t eksdemo .
         docker tag ${IMAGE_NAME}:${TAG_NAME} ${Docker_URL}:latest
       """
 } 
