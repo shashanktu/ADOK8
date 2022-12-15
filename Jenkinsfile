@@ -49,7 +49,7 @@ stage('Build Image'){
  
  stage('predeploy'){
               withDockerRegistry(credentialsId: 'ecr:us-east-1:awsECRForeksdemo', url: 'https://670166063118.dkr.ecr.us-east-1.amazonaws.com') {
-              docker push ${Docker_URL}:${TAG_NAME}
+              sh "docker push ${Docker_URL}:${TAG_NAME}"
               }
    
  }
