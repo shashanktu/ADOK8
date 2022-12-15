@@ -41,7 +41,8 @@ stage('Build Image'){
            // steps {
                 script{
                         docker.withRegistry('670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo', 'ecr:us-east-1:awsECRForeksdemo') {
-                         docker tag ${Docker_URL}:${TAG_NAME} ${Docker_URL}:latest
+                       //  docker tag ${Docker_URL}:${TAG_NAME} ${Docker_URL}:latest
+                         docker tag eksdemo:latest ${Docker_URL}:${TAG_NAME}
                          docker push ${Docker_URL}:latest                   
                         }
               //  }
