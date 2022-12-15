@@ -28,7 +28,7 @@ stage('Build Image'){
     sh """        
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
         docker save -o maven.tar ${IMAGE_NAME}:${TAG_NAME}
-        docker tag ${IMAGE_NAME}:${TAG_NAME} ${Docker_URL}:latest
+        docker tag ${IMAGE_NAME}:${TAG_NAME} ${Docker_URL}:${TAG_NAME}
       """
 } 
         
