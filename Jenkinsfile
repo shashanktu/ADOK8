@@ -23,15 +23,36 @@ stage('Build') {
     }
 }
 
-
 stage('Build Image'){
     sh """        
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
         docker save -o maven.tar ${IMAGE_NAME}:${TAG_NAME}
       """
 } 
+        
+ stage('Test'){
+            steps {
+                 echo 'Empty'
+            }
+ }
+ 
+ stage('Push') {
+            steps {
+                script{
+                        docker.withRegistry('https://720766170633.dkr.ecr.us-east-2.amazonaws.com', 'ecr:us-east-2:aws-credentials') {
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+                    }
+                }
+            }
+        }
+ stage('Deploy'){
+            steps {
+                 sh 'kubectl apply -f deployment.yml'
+            }
+        }
 
- stage("Deploy to EKS"){
+/* stage("Deploy to EKS"){
   def dockerRun = "docker run -d -p 9999:9999 --name myapp ${IMAGE_NAME}:${TAG_NAME}"
     sshagent(['SSH-JENKINS']){
         sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker rm -f `docker ps -a -q`'"
@@ -41,5 +62,5 @@ stage('Build Image'){
          sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker images'"
          sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 ${dockerRun}"
     }
- }
+ }*/
  }
