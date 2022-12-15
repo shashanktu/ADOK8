@@ -37,14 +37,14 @@ stage('Build Image'){
             }
  }*/
  
- stage('Push') {
+ /*stage('Push') {
            // steps {
                 script{
                         docker.withRegistry('https://670166063118.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:awsECRForeksdemo') {
                         }
                          
             }
-        }
+        }*/
  stage('Deploy'){
             steps {
                         sh """aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 670166063118.dkr.ecr.us-east-1.amazonaws.com
