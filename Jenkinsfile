@@ -39,9 +39,9 @@ stage('Build Image'){
  stage('Push') {
            // steps {
                 script{
-                        docker.withRegistry('https://670166063118.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:awsECRForeksdemo') {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
+                        docker.withRegistry('670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo', 'ecr:us-east-1:awsECRForeksdemo') {
+                        docker images
+                        docker push 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo/${IMAGE_NAME}:{TAG_NAME}
                     }
               //  }
             }
