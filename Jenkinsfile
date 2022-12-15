@@ -42,14 +42,16 @@ stage('Build Image'){
                 script{
                         docker.withRegistry('670166063118.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:awsECRForeksdemo') {
                         }
-                         sh """docker tag ${IMAGE_NAME}:${TAG_NAME} ${Docker_URL}:latest
-                              docker push ${Docker_URL}:latest                   
-                            """
+                         
             }
         }
  stage('Deploy'){
             steps {
-                 sh 'kubectl apply -f deployment.yml'
+                        sh """docker tag ${IMAGE_NAME}:${TAG_NAME} ${Docker_URL}:latest
+                              docker push ${Docker_URL}:latest 
+                               kubectl apply -f deployment.yml
+                            """
+                
             }
         }
 
