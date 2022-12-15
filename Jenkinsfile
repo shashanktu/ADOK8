@@ -37,19 +37,19 @@ stage('Build Image'){
  }*/
  
  stage('Push') {
-            steps {
+           // steps {
                 script{
                         docker.withRegistry('https://670166063118.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:awsECRForeksdemo') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
-                }
+              //  }
             }
         }
  stage('Deploy'){
-            steps {
+           // steps {
                  sh 'kubectl apply -f deployment.yml'
-            }
+           // }
         }
 
 /* stage("Deploy to EKS"){
