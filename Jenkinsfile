@@ -6,7 +6,7 @@ def TAG_NAME = params.TAG_NAME
  def Jfog_Ip = params.Jfog_Ip
  def Jfog_Port = params.Jfog_Port
  def Repository_Key = params.Repository_Key
- def Docker_URL - params.Docker_URL
+ def Docker_URL = params.Docker_URL
  
 // def docker_login = params.docker_login
 // def Dockerhub_URL = params.Dockerhub_URL
