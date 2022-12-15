@@ -48,9 +48,10 @@ stage('Build Image'){
         }*/
  
  stage('predeploy'){
-              withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+              withDockerRegistry(credentialsId: 'ecr:us-east-1:awsECRForeksdemo', url: 'https://670166063118.dkr.ecr.us-east-1.amazonaws.com') {
               docker push ${Docker_URL}:${TAG_NAME}
-} 
+              }
+   
  }
  
  stage('Deploy'){
