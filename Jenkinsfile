@@ -26,7 +26,7 @@ stage('Build') {
 stage('Build Image'){
     sh """        
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
-        docker save -o maven.tar ${IMAGE_NAME}:${TAG_NAME}
+       // docker save -o maven.tar ${IMAGE_NAME}:${TAG_NAME}
       """
 } 
         
@@ -40,11 +40,12 @@ stage('Build Image'){
            // steps {
                 script{
                         docker.withRegistry('670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo', 'ecr:us-east-1:awsECRForeksdemo') {
-                        docker images
-                        docker push 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo/${IMAGE_NAME}:${TAG_NAME}
+                        docker tag 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo:qa-release 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo:latest
+                      //  docker tag 
+                         docker push 670166063118.dkr.ecr.us-east-1.amazonaws.com/${IMAGE_NAME}:${TAG_NAME}
                     }
               //  }
-          //  }
+            }
         }
  stage('Deploy'){
            // steps {
