@@ -49,7 +49,8 @@ stage('Build Image'){
                      /usr/local/bin/aws eks update-kubeconfig --name eksdemo --region us-east-1  
                      kubectl config view --minify
                      echo check kubectl access
-                     kubectl apply -f eksdemo.yml"""              
+                     kubectl apply -f deployment.yml
+                     kubectl apply -f service.yaml"""              
 }
            
  }
