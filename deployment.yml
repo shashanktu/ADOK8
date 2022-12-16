@@ -1,25 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworld-app-jenkins 
-  labels:
-    app: helloworld-app
+  name: adok8-v1
 spec:
+  replicas: 1
   selector:
     matchLabels:
-        app: helloworld-app
-  replicas: 3
-  strategy:
-    type: RollingUpdate
+      app: adok8
   template:
     metadata:
       labels:
-        app: helloworld-app
+        app: adok8
+        version: adok8-version-1
     spec:
       containers:
-        - name: helloworld-app
+        - name: adok8-1
           image: 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo:qa-release1
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
-              protocol: TCP
-          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m
+          env:
+            - name: TZ
+              value: Asia/Kolkata
