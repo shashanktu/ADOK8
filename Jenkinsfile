@@ -45,9 +45,12 @@ stage('Build Image'){
  
  stage('Deploy'){
               withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig', namespace: '', serverUrl: '') {
-               sh 'aws eks update-kubeconfig --name eksdemo --region us-east-1'   
-               sh 'kubectl apply -f eksdemo.yml'
-                  
+               sh """aws sts get-caller-identity
+                     echo Logging in to Amazon EKS...
+                     aws eks update-kubeconfig --name eksdemo --region us-east-1  
+                     kubectl config view --minify
+                     echo check kubectl access
+                     kubectl apply -f eksdemo.yml"""              
 }
            
  }
