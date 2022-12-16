@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: helloworld-app
-          image: 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo:latest
+          image: 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo:qa-release1
           ports:
             - containerPort: 80
               protocol: TCP
