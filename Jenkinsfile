@@ -45,7 +45,9 @@ stage('Build Image'){
  
  stage('Deploy'){
               withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig', namespace: '', serverUrl: '') {
-                  sh 'kubectl apply -f eksdemo.yml'
+               sh 'aws eks update-kubeconfig --name eksdemo --region us-east-1'   
+               sh 'kubectl apply -f eksdemo.yml'
+                  
 }
            
  }
