@@ -15,7 +15,6 @@ stage('Checkout') {
   git branch: 'master', credentialsId:'github', url: 'https://github.com/dpanigrahy2020/ADOK8.git'  
  }
 
-
 stage('Build') {
     withMaven(jdk: 'java', maven: 'maven') {
         
@@ -23,11 +22,10 @@ stage('Build') {
         sh 'mvn -f pom.xml clean package -Dmaven.test.skip=true'
     }
 }
-//docker build -t eksdemo .
+
 stage('Build Image'){
     sh """        
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
-        docker save -o maven.tar ${IMAGE_NAME}:${TAG_NAME}
         docker tag ${IMAGE_NAME}:${TAG_NAME} ${Docker_URL}:${TAG_NAME}
       """
 } 
@@ -38,21 +36,11 @@ stage('Build Image'){
             }
  }*/
  
- /*stage('Push') {
-           // steps {
-                script{
-                        docker.withRegistry('https://670166063118.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:awsECRForeksdemo') {
-                        }
-                         
-            }
-        }*/
- 
  stage('predeploy'){
               withDockerRegistry(credentialsId: 'ecr:us-east-1:awsECRForeksdemo', url: 'https://670166063118.dkr.ecr.us-east-1.amazonaws.com') {
               sh "docker push ${Docker_URL}:${TAG_NAME}"
               sh "docker pull ${Docker_URL}:${TAG_NAME}"
-              }
-   
+              } 
  }
  
  stage('Deploy'){
