@@ -17,4 +17,6 @@ spec:
         - name: adok8-1
           image: 670166063118.dkr.ecr.us-east-1.amazonaws.com/eksdemo:qa-release1
           imagePullPolicy: Always
+          ports:
+          - containerPort: 80
          
