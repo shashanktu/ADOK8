@@ -44,7 +44,7 @@ stage('Build Image'){
  }
  
  stage('Deploy'){
-              withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig', namespace: '', serverUrl: '') {
+              withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeAWS', namespace: '', serverUrl: '') {
                sh """/usr/local/bin/aws sts get-caller-identity
                      echo Logging in to Amazon EKS...
                      /usr/local/bin/aws eks update-kubeconfig --name eksdemo --region us-east-1  
