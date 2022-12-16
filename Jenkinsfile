@@ -44,7 +44,10 @@ stage('Build Image'){
  }
  
  stage('Deploy'){
-           sh 'kubectl apply -f deployment.yml'
+              withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig', namespace: '', serverUrl: '') {
+                  sh 'kubectl apply -f deployment.yml'
+}
+           
  }
 
 /* stage("Deploy to EKS"){
