@@ -52,7 +52,6 @@ stage('Build Image'){
                      kubectl apply -f deployment.yml
                      kubectl apply -f service.yaml
                      kubectl rollout restart -f deployment.yml
-                     kubectl rollout restart -f service.yaml
                      """              
 }
            
