@@ -50,8 +50,10 @@ stage('Build Image'){
                      kubectl config view --minify
                      echo check kubectl access
                      kubectl apply -f deployment.yml
+                     kubectl apply -f service.yaml
                      kubectl rollout restart -f deployment.yml
-                     kubectl apply -f service.yaml"""              
+                     kubectl rollout restart -f service.yaml
+                     """              
 }
            
  }
