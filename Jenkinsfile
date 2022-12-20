@@ -1,7 +1,7 @@
 node {
 
  def IMAGE_NAME = params.IMAGE_NAME
- def TAG_NAME = ${BUILD_NUMBER}
+ def TAG_NAME = BUILD_NUMBER
  //def TAG_NAME = params.TAG_NAME
  //def TAG_NAME_Latest = params.TAG_NAME_Latest
  //def Jfog_Ip = params.Jfog_Ip
