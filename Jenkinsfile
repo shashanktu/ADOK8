@@ -62,7 +62,7 @@ stage('Build Image'){
 /* stage("Deploy to EKS"){
   def dockerRun = "docker run -d -p 9999:9999 --name myapp ${IMAGE_NAME}:${TAG_NAME}"
     sshagent(['SSH-JENKINS']){
-        sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker rm -f `docker ps -a -q`'"
+        sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker rm -f `docker ps -a -q`'" 
         sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker rmi -f `docker images  -q`'"
          sh "rsync -avz /var/lib/jenkins/workspace/JOB/maven.tar webapps@20.25.118.165:/home/webapps"
          sh "ssh -o StrictHostKeyChecking=no webapps@20.25.118.165 'docker load -i maven.tar'"
