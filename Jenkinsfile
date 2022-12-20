@@ -2,7 +2,6 @@ node {
 
  def IMAGE_NAME = params.IMAGE_NAME
  def TAG_NAME = params.TAG_NAME
- def TAG_NAME = ${BUILD_NUMBER}
  //def TAG_NAME_Latest = params.TAG_NAME_Latest
  //def Jfog_Ip = params.Jfog_Ip
  //def Jfog_Port = params.Jfog_Port
@@ -25,7 +24,10 @@ stage('Build') {
 }
 
 stage('Build Image'){
-    sh """        
+    sh """
+        if ${TAG_NAME} == NULL
+           TAG_NAME=${BUILD_NUMBER}
+        echo TAG_NAME is ${TAG_NAME}
         docker build -t ${IMAGE_NAME}:${TAG_NAME} .
         docker tag ${IMAGE_NAME}:${TAG_NAME} ${Docker_URL}:${TAG_NAME}
       """
