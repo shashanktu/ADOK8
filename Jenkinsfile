@@ -17,7 +17,6 @@ stage('Checkout') {
  }
 
 stage('Build') {
-    sh 'echo $BUILD_NUMBER'
     withMaven(jdk: 'java', maven: 'maven') {        
         println "build is running"
         sh 'mvn -f pom.xml clean package -Dmaven.test.skip=true'
