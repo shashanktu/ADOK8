@@ -16,7 +16,7 @@ public class TestApplication {
 	@RequestMapping("/")
 	public String message()
 	{
-		return "Welcome Friends. Happy Learning EKS CICD Pipeline.";
+		return "Welcome Friends.";
 	}
 
 }
