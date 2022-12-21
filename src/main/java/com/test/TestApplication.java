@@ -16,7 +16,7 @@ public class TestApplication {
 	@RequestMapping("/")
 	public String message()
 	{
-		return "Welcome Friends..";
+		return "Welcome Friends..Happy Learning ...";
 	}
 
 }
