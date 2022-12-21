@@ -16,7 +16,7 @@ public class TestApplication {
 	@RequestMapping("/")
 	public String message()
 	{
-		return "Welcome Friends..Happy Learning to Jenkins CI/CD pipeline target EKS.";
+		return "Welcome Friends..";
 	}
 
 }
