@@ -16,7 +16,7 @@ public class TestApplication {
 	@RequestMapping("/")
 	public String message()
 	{
-		return "Welcome Friends for EKS pipeline deployment Demo...";
+		return "Welcome Friends for EKS pipeline deployment Demo....";
 	}
 
 }
