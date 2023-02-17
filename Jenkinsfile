@@ -41,9 +41,8 @@ stage('Build Image'){
  }
  
  stage('Deploy'){
-              withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeAWS', namespace: '', serverUrl: '') {
-               sh """aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile default && aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile default && aws configure set region "us-east-1" --profile default && aws configure set output "" --profile default
-                     /usr/bin/aws eks update-kubeconfig --name eksdemo1 --region us-east-1  
+              withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfigAWS', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+             sh """/usr/bin/aws eks update-kubeconfig --name eksdemo1 --region us-east-1  
                      kubectl config view --minify
                      echo check kubectl access
                      kubectl apply -f deployment.yml
