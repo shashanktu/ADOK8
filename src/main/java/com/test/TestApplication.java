@@ -16,7 +16,7 @@ public class TestApplication {
 	@RequestMapping("/")
 	public String message()
 	{
-		return "Welcome Friends to EKS.";
+		return "This is a sample Containerized application Deployed to one of the Pod in AWS EKS cluster.";
 	}
 
 }
