@@ -7,7 +7,7 @@ node {
  def Docker_URL = params.Docker_URL  // this is ECR URL
 
 stage('Checkout') {
-  git branch: 'master', credentialsId:'githubdemo', url: 'https://github.com/dpanigrahy2020/ADOK8.git'  
+  git branch: 'master', credentialsId:'githubdemo', url: 'https://github.com/shashanktu/ADOK8.git'  
  }
 
 stage('Build') {
