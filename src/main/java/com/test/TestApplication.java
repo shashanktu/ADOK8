@@ -16,7 +16,7 @@ public class TestApplication {
 	@RequestMapping("/")
 	public String message()
 	{
-		return "Hi Shashank ";
+		return "Welcome to Azure devops With Kubernetes ";
 	}
 
 }
