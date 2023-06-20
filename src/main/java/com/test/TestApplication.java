@@ -16,7 +16,7 @@ public class TestApplication {
 	@RequestMapping("/")
 	public String message()
 	{
-		return "Hello from Valuemomentum ";
+		return "Hi Shashank ";
 	}
 
 }
